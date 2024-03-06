@@ -2,6 +2,7 @@ import { ValidationPipe, INestApplication } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import * as dotenv from 'dotenv'
 
 const initSwagger = (app: INestApplication) => {
   const config = new DocumentBuilder()
@@ -25,11 +26,12 @@ const initValidation = (app: INestApplication) =>
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  dotenv.config();
 
   initSwagger(app);
   initValidation(app);
 
-  await app.listen(3000);
+  await app.listen(process.env.PORT || 8080);
 }
 
 bootstrap();

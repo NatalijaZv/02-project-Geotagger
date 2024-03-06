@@ -23,6 +23,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: JwtPayloadDto) {
-    return await this.usersRepository.findOneOrFail(payload.sub);
+    // return await this.usersRepository.findOneOrFail(payload.sub);
+    // return await this.usersRepository.findOneOrFail(payload.sub, { select: ['id', 'username', 'password'] });
+return await this.usersRepository.findOneOrFail({where: {id:payload.sub}})
+
   }
 }

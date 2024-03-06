@@ -19,7 +19,7 @@ export class AuthService {
   ) {}
 
   async register(username: string, password: string) {
-    const user = await this.usersRepository.findOne({ username });
+    const user = await this.usersRepository.findOneBy({ username });
 
     if (user) {
       throw new BadRequestException(`${username} is already taken`);
@@ -43,10 +43,11 @@ export class AuthService {
   }
 
   async validateUser(username: string, password: string) {
-    const user = await this.usersRepository.findOne(
-      { username },
-      { select: ['id', 'username', 'password'] },
-    );
+    // const user = await this.usersRepository.findOne(
+    //   { username },
+    //   { select: ['id', 'username', 'password'] },
+    // );
+    const user = await this.usersRepository.findOne({ where: { username } });
 
     if (!user) {
       throw new NotFoundException(`User with username ${username} not found`);

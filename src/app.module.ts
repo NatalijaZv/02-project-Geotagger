@@ -13,6 +13,7 @@ import { AuthModule } from './modules/auth/auth.module';
     }),
     TypeOrmModule.forRootAsync({
       useFactory: () => typeOrmModuleOptions,
+      imports: undefined
     }),
     AuthModule,
   ],
